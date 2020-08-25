@@ -14,4 +14,4 @@
 
 [Source](https://drive.google.com/file/d/1Xy03_Rlo51Y3B2NCC4qhPNnrXuZw6ASe/view?usp=sharing)
 
-![](https://i.imgur.com/X6F7qJA.gif)
+![](https://i.imgur.com/6igof9Y.gif)
