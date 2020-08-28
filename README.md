@@ -12,6 +12,5 @@
 
 ## DEMO
 
-[Source](https://drive.google.com/file/d/1Xy03_Rlo51Y3B2NCC4qhPNnrXuZw6ASe/view?usp=sharing)
+![](https://i.imgur.com/wqlD5ge.gif)
 
-![](https://i.imgur.com/6igof9Y.gif)
