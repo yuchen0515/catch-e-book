@@ -175,29 +175,33 @@ while 1:
         gosleep(10)
         #找html內所有 有img的標籤(裡面的src標籤內會有網址)
         imge2 = sp.find_all(['img'])
-        gosleep(10)
-        imge = imge2[k].get('src') #抓原始圖檔網址
-        full_path=url3+str(imge)    #配上原本主機的網址，得出最終圖片原始網址
-        gosleep(10)
-        #用urlopen可以剖析網址中的內容，而且更可以針對這個網址直接做事情(如post, get等)
-        image = urlopen(full_path)
-        gosleep(10)
-        #fp = open('{}{}.jpg'.format(name,i), 'wb')
-        #在剛剛新增的資料夾新增一個 書名i.jpg的空白jpg
-        fp = open('{}\{}\{}_{}.jpg'.format(now,name,name,i), 'wb')
-        gosleep(10)
-        #將剛剛剖析的圖片網址，寫進去空白檔案(變成正常圖檔)
-        fp.write(image.read())
-        gosleep(10)
-        #關掉檔案，並輸出說XXX下載完成
-        fp.close()
-        gosleep(10)
-        print('{}_{}.jpg 下載完成...'.format(name,i))
-        i,k = i+1, k+1
-        #driver.save_screenshot("")
+        for imge3 in imge2:
+            gosleep(10)
+            imge = imge3.get('src') #抓原始圖檔網址
+            if "img?p={}".format(i) in imge:
+                full_path=url3+str(imge)    #配上原本主機的網址，得出最終圖片原始網址
+                gosleep(10)
 
-        #找往右按的按鈕，然後按下去
-        gosleep(10)
+
+        #用urlopen可以剖析網址中的內容，而且更可以針對這個網址直接做事情(如post, get等)
+                image = urlopen(full_path)
+                gosleep(10)
+                #fp = open('{}{}.jpg'.format(name,i), 'wb')
+                #在剛剛新增的資料夾新增一個 書名i.jpg的空白jpg
+                fp = open('{}\{}\{}_{}.jpg'.format(now,name,name,i), 'wb')
+                gosleep(10)
+                #將剛剛剖析的圖片網址，寫進去空白檔案(變成正常圖檔)
+                fp.write(image.read())
+                gosleep(10)
+                #關掉檔案，並輸出說XXX下載完成
+                fp.close()
+                gosleep(10)
+                print('{}_{}.jpg 下載完成...'.format(name,i))
+                i,k = i+1, k+1
+                #driver.save_screenshot("")
+
+                #找往右按的按鈕，然後按下去
+                gosleep(10)
         e=driver.find_element_by_xpath("/html/body/div[@class='_voler_nextNavigator']")
         gosleep(10)
         e.click()
@@ -207,4 +211,4 @@ while 1:
         #說明截圖幾張了，然後關掉自動化瀏覽器
         print("已經完成囉，截圖數：{}張".format(i))
         driver.close()
-        break
+        #break
