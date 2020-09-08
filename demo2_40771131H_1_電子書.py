@@ -24,9 +24,11 @@ def close_window ():
 
 #開自動化控制瀏覽器
 url = 'http://lib.ebookservice.tw/il/#account/sign-in'
-driver= webdriver.Chrome("/home/yuchen0515/.local/bin/chromedriver")
+#driver= webdriver.Chrome("/home/yuchen0515/.local/bin/chromedriver")
 
-#driver= webdriver.Firefox() #用火狐開
+
+#print(help(webdriver.Firefox))
+driver= webdriver.Firefox() #用火狐開
 driver.maximize_window()    #視窗最大化
 
 gosleep(100)
@@ -167,19 +169,19 @@ while os.path.isdir(('{}\{}{}{}'.format(now,name,kk,pkk))):
 os.mkdir(name)
 
 k=0 #127/128
-i = 1
+#i = 1
 
 #sp = BeautifulSoup(driver.page_source, "html.parser")
 #gosleep(10)
 #imge2 = sp.find('img').parent
 #跑無限迴圈把電子借閱介面的圖片原始檔一一爬出來
+#http = []
+sp = BeautifulSoup(driver.page_source, "html.parser")
 while 1:
     #這是python的例外處理，以免因為錯誤而跳error而無法持續
     try:
         #使用BeautifulSoup解析html把輪廓弄出來 (目前瀏覽器所在頁面的html)
-        gosleep(10)
-        time.sleep(1)
-        sp = BeautifulSoup(driver.page_source, "html.parser")
+        time.sleep(0.5)
         gosleep(10)
         #找html內所有 有img的標籤(裡面的src標籤內會有網址)
         imge = sp.find('li', 'frameP{}'.format(i-1)).find('img').get('src')
@@ -189,6 +191,8 @@ while 1:
 
 
         #用urlopen可以剖析網址中的內容，而且更可以針對這個網址直接做事情(如post, get等)
+        #http.append(full_path)
+
         image = urlopen(full_path)
         gosleep(10)
         #fp = open('{}{}.jpg'.format(name,i), 'wb')
@@ -202,6 +206,7 @@ while 1:
         fp.close()
         gosleep(10)
         print('{}_{}.jpg 下載完成...'.format(name,i))
+
         i ,k = i+1, k+1
         #driver.save_screenshot("")
 
@@ -213,9 +218,28 @@ while 1:
             gosleep(10)
             e=driver.find_element_by_xpath("/html/body/div[@class='_voler_nextNavigator']")
             gosleep(10)
+            sp = BeautifulSoup(driver.page_source, "html.parser")
             e.click()
         #說明截圖幾張了，然後關掉自動化瀏覽器
         except:
             print("已經完成囉，截圖數：{}張".format(i))
         #driver.close()
-        #break
+            break
+
+"""
+for p in http:
+    print(p)
+    image = urlopen(full_path)
+    gosleep(10)
+    fp = open('{}{}.jpg'.format(name,i), 'wb')
+    #在剛剛新增的資料夾新增一個 書名i.jpg的空白jpg
+    fp = open('{}/{}/{}_{}.jpg'.format(now,name,name,i), 'wb')
+    gosleep(10)
+    #將剛剛剖析的圖片網址，寫進去空白檔案(變成正常圖檔)
+    fp.write(image.read())
+    gosleep(10)
+    #關掉檔案，並輸出說XXX下載完成
+    fp.close()
+    gosleep(10)
+    print('{}_{}.jpg 下載完成...'.format(name,i))
+"""
